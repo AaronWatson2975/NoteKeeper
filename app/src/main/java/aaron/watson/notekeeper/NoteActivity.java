@@ -51,8 +51,10 @@ public class NoteActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (mIsCancelling && mIsNewNote) {
-            DataManager.getInstance().removeNote(mNotePosition);
+        if (mIsCancelling) {
+            if (mIsNewNote) {
+                DataManager.getInstance().removeNote(mNotePosition);
+            }
         } else {
             saveNote();
         }
