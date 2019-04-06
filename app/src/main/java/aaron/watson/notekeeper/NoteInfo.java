@@ -3,10 +3,6 @@ package aaron.watson.notekeeper;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by Jim.
- */
-
 public final class NoteInfo implements Parcelable{
     private CourseInfo mCourse;
     private String mTitle;
