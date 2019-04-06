@@ -1,7 +1,4 @@
-package com.example.notekeeper;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package aaron.watson.notekeeper;
 
 /**
  * Created by Jim.
