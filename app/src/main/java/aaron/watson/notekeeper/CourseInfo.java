@@ -1,10 +1,5 @@
-package com.example.notekeeper;
+package aaron.watson.notekeeper;
 
-import android.database.Cursor;
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by Jim.

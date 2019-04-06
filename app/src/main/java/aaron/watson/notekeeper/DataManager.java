@@ -1,4 +1,4 @@
-package com.example.notekeeper;
+package aaron.watson.notekeeper;
 
 import java.util.ArrayList;
 import java.util.List;
