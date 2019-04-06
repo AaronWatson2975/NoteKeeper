@@ -85,7 +85,7 @@ public final class NoteInfo implements Parcelable{
 
                 @Override
                 public NoteInfo createFromParcel(Parcel source) {
-                    new NoteInfo(source);
+                    return new NoteInfo(source);
                 }
 
                 @Override
