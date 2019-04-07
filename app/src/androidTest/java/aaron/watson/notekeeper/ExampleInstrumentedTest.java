@@ -1,4 +1,4 @@
-/*package aaron.watson.notekeeper;
+package aaron.watson.notekeeper;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -16,7 +16,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("aaron.watson.notekeeper", appContext.getPackageName());
+        assertEquals("aaron.watson.notekeeper[.debug]", appContext.getPackageName());
     }
 }
-*/
