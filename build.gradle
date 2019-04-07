@@ -8,10 +8,19 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+}
+
+ext {
+    assertJCore = 'org.assertj:assertj-core:1.7.1'
+    junit = 'junit:junit:4.12'
+
+    supportTest = [espressoCore: 'com.android.support.test.espresso:espresso-core:2.2.2',
+                   rules       : 'com.android.support.test:rules:0.5']
 }
 
 allprojects {
