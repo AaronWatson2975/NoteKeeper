@@ -1,4 +1,4 @@
-package com.example.notekeeper;
+package aaron.watson.notekeeper;
 
 import org.junit.Test;
 
