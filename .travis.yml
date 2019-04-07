@@ -31,9 +31,9 @@ matrix:
         - chmod +x gradlew
         - ./gradlew --version
         - echo y |adb devices
-      script:
-        - ./gradlew build jacocoTestReport assembleAndroidTest
+      script:      
         - ./gradlew clean build
+        - ./gradlew jacocoTestReport
         - ./gradlew connectedCheck
 
       after_success:
