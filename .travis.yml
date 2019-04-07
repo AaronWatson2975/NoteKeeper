@@ -32,7 +32,12 @@ matrix:
         - ./gradlew --version
         - echo y |adb devices
       script:
+        - ./gradlew build jacocoTestReport assembleAndroidTest
         - ./gradlew clean build
+        - ./gradlew connectedCheck
+
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
