@@ -1,16 +1,19 @@
 package aaron.watson.notekeeper;
 
-import android.provider.ContactsContract;
 import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import aaron.watson.notekeeper.CourseInfo;
+import aaron.watson.notekeeper.DataManager;
+import aaron.watson.notekeeper.NoteInfo;
+import aaron.watson.notekeeper.NoteListActivity;
+import aaron.watson.notekeeper.R;
 
 import static org.junit.Assert.*;
 import static android.support.test.espresso.Espresso.*;
@@ -21,11 +24,10 @@ import static org.hamcrest.Matchers.*;
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.assertion.ViewAssertions.*;
 
+
 @RunWith(AndroidJUnit4.class)
 public class NoteCreationTest {
-
     static DataManager sDataManager;
-
     @BeforeClass
     public static void classSetUp() throws Exception {
         sDataManager = DataManager.getInstance();
@@ -37,11 +39,11 @@ public class NoteCreationTest {
 
     @Test
     public void createNewNote() {
-
-        final CourseInfo course = sDataManager.getCourse("java lang");
+        final CourseInfo course = sDataManager.getCourse("java_lang");
         final String noteTitle = "Test note title";
         final String noteText = "This is the body of our test note";
-
+//        ViewInteraction fabNewNote = onView(withId(R.id.fab));
+//        fabNewNote.perform(click());
         onView(withId(R.id.fab)).perform(click());
 
         onView(withId(R.id.spinner_courses)).perform(click());
@@ -49,22 +51,27 @@ public class NoteCreationTest {
         onView(withId(R.id.spinner_courses)).check(matches(withSpinnerText(
                 containsString(course.getTitle()))));
 
-        onView(withId(R.id.text_note_title)).perform(typeText("Test note title"))
+        onView(withId(R.id.text_note_title)).perform(typeText(noteTitle))
                 .check(matches(withText(containsString(noteTitle))));
 
-        onView(withId(R.id.text_note_text)).perform(typeText("This is the body of our test bote"),
-                ViewActions.closeSoftKeyboard());
-
+        onView(withId(R.id.text_note_text)).perform(typeText(noteText),
+                closeSoftKeyboard());
         onView(withId(R.id.text_note_text)).check(matches(withText(containsString(noteText))));
-        onView(withId(R.id.text_note_title)).check(matches(withText(containsString(noteTitle))));
 
         pressBack();
 
-        final int noteIndex = sDataManager.getNotes().size() - 1;
-        final NoteInfo note = sDataManager.getNotes().get(noteIndex);
-        
-        assertEquals(note.getCourse(), course);
+        int noteIndex = sDataManager.getNotes().size() - 1;
+        NoteInfo note = sDataManager.getNotes().get(noteIndex);
+        assertEquals(course, note.getCourse());
         assertEquals(noteTitle, note.getTitle());
         assertEquals(noteText, note.getText());
     }
 }
+
+
+
+
+
+
+
+
