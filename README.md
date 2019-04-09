@@ -25,5 +25,6 @@ Branch      | Status | Code Coverage |
   <li>Continuous integration using Travis CI</li>
   <li>Code coverage reports using jacoco</li>
   <li>Code coverage monitoring using CodeCov</li>
+  <li>Significantly better test coverage</li>
 </ul>
 
