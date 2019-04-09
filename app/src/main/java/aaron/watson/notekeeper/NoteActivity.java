@@ -58,7 +58,7 @@ public class NoteActivity extends AppCompatActivity {
 
 
         mTextNoteTitle = findViewById(R.id.text_note_title);
-        mTextNoteText = findViewById(R.id.test_note_text);
+        mTextNoteText = findViewById(R.id.text_note_text);
 
         if(!mIsNewNote) {
             displayNote(mSpinnerCourses, mTextNoteTitle, mTextNoteText);
