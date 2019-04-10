@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class DataManagerTest {
@@ -64,6 +66,18 @@ public class DataManagerTest {
 
         int foundIndex2 = sDataManager.findNote(newNote2);
         assertEquals(noteIndex2, foundIndex2);
+
+        int numberOfNotes = sDataManager.getNoteCount(course);
+        assertEquals(numberOfNotes, 4);
+
+        List<NoteInfo> notes = sDataManager.getNotes(course);
+
+        int totalNotes = sDataManager.getNotes().size();
+        int firstNoteHash = sDataManager.getNotes().get(0).hashCode();
+        sDataManager.removeNote(0);
+
+        assertEquals(totalNotes-1, sDataManager.getNotes().size());
+        assertNotEquals(firstNoteHash, sDataManager.getNotes().get(0).hashCode());
     }
 
     @Test
