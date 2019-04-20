@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_notes) {
             displayNotes();
         } else if (id == R.id.nav_courses) {
-
+            displayCourses();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
