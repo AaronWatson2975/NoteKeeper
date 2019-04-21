@@ -61,6 +61,7 @@ public class CourseInfoTest {
         Assert.assertEquals(mockTitle, course.toString());
         Assert.assertEquals(mockID, course.getCourseId());
         Assert.assertTrue(modules.equals(course.getModules()));
+        Assert.assertEquals(mockTitle, course.getTitle());
 
         Assert.assertTrue(Arrays.equals(completion, course.getModulesCompletionStatus()));
 

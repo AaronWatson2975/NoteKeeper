@@ -31,5 +31,10 @@ public class ModuleInfoTest {
         ModuleInfo createdFromParcel = ModuleInfo.CREATOR.createFromParcel(parcel);
         Assert.assertTrue(createdFromParcel.equals(firstModule));
 
+
+        String expectedToString = "Test Title";
+        String actualToString = firstModule.toString();
+        Assert.assertEquals(expectedToString, actualToString);
+
     }
 }
