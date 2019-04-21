@@ -1,0 +1,20 @@
+ignore:
+  - "**/databinding/**/*.*"
+  - "**/android/databinding/*Binding.*"
+  - "**/BR.*"
+  - "**/R.*"
+  - "**/R$*.*"
+  - "**/BuildConfig.*"
+  - "**/Manifest*.*"
+  - "**/*_MembersInjector.*"
+  - "**/Dagger*Component.*"
+  - "**/Dagger*Component$Builder.*"
+  - "**/*Module_*Factory.*"
+  - "**/*Fragment*.*"
+  - "**/*Activity*.*"
+  - "**/*Adapter*.*"
+  - "**/*ViewPager*.*"
+  - "**/*ViewHolder*.*"
+  - "**/*Module*.*"
+
+  
