@@ -1,7 +1,11 @@
 package aaron.watson.notekeeper;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static aaron.watson.notekeeper.NoteKeeperDatabaseContract.*;
 
 /**
  * Created by Jim.
@@ -16,8 +20,8 @@ public class DataManager {
     public static DataManager getInstance() {
         if(ourInstance == null) {
             ourInstance = new DataManager();
-            ourInstance.initializeCourses();
-            ourInstance.initializeExampleNotes();
+            // ourInstance.initializeCourses();
+            // ourInstance.initializeExampleNotes();
         }
         return ourInstance;
     }
@@ -146,6 +150,13 @@ public class DataManager {
                 "The -jar option isn't compatible with with the -cp option"));
         mNotes.add(new NoteInfo(course, "Serialization",
                 "Remember to include SerialVersionUID to assure version compatibility"));
+    }
+
+    private static void loadFromDatabase(NoteKeeperOpenHelper dbHelper) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] courseColumns = {CourseInfoEntry.COLUMN_COURSE_ID, CourseInfoEntry.COLUMN_COURSE_TITLE};
+
+        db.query(CourseInfoEntry.TABLE_NAME, courseColumns, null, null, null, null, null);
     }
 
     private CourseInfo initializeCourse1() {
