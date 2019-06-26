@@ -1,12 +1,15 @@
 package aaron.watson.notekeeper;
 
 import android.os.Parcel;
-import android.provider.ContactsContract;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import aaron.watson.notekeeper.course.CourseInfo;
+import aaron.watson.notekeeper.data.DataManager;
+import aaron.watson.notekeeper.note.NoteInfo;
 
 /**
  * Created by Aaron on 2019-04-09.

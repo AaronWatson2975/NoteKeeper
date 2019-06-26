@@ -9,10 +9,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import aaron.watson.notekeeper.CourseInfo;
-import aaron.watson.notekeeper.DataManager;
-import aaron.watson.notekeeper.NoteInfo;
-import aaron.watson.notekeeper.NoteListActivity;
+import aaron.watson.notekeeper.course.CourseInfo;
+import aaron.watson.notekeeper.data.DataManager;
+import aaron.watson.notekeeper.note.NoteInfo;
+import aaron.watson.notekeeper.note.NoteListActivity;
 import aaron.watson.notekeeper.R;
 
 import static org.junit.Assert.*;

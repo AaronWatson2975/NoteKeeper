@@ -1,8 +1,10 @@
-package aaron.watson.notekeeper;
+package aaron.watson.notekeeper.note;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import aaron.watson.notekeeper.data.DatabaseDataWorker;
 
 public class NoteKeeperOpenHelper extends SQLiteOpenHelper {
 
