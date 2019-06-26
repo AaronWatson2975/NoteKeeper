@@ -3,10 +3,6 @@ package aaron.watson.notekeeper;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 
-/**
- * Created by Jim.
- */
-
 public class DatabaseDataWorker {
     private SQLiteDatabase mDb;
 
