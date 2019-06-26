@@ -30,6 +30,7 @@ public class CourseInfoTest {
     @Before
     public void setUp() throws Exception {
         sDataManager.getNotes().clear();
+        sDataManager.initializeCourses();
         sDataManager.initializeExampleNotes();
     }
 

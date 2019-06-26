@@ -22,8 +22,6 @@ public class DataManager {
     public static DataManager getInstance() {
         if(ourInstance == null) {
             ourInstance = new DataManager();
-//            ourInstance.initializeCourses();
-//            ourInstance.initializeExampleNotes();
         }
         return ourInstance;
     }
@@ -86,11 +84,11 @@ public class DataManager {
     }
 
     public String getCurrentUserName() {
-        return "Jim Wilson";
+        return "Aaron Watson";
     }
 
     public String getCurrentUserEmail() {
-        return "jimw@jwhh.com";
+        return "AaronWatson2975@Gmail.com";
     }
 
     public List<NoteInfo> getNotes() {
@@ -151,7 +149,7 @@ public class DataManager {
 
     //region Initialization code
 
-    private void initializeCourses() {
+    public void initializeCourses() {
         mCourses.add(initializeCourse1());
         mCourses.add(initializeCourse2());
         mCourses.add(initializeCourse3());
