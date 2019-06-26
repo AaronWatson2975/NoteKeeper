@@ -19,6 +19,7 @@ public class NoteKeeperOpenHelper extends SQLiteOpenHelper {
         db.execSQL(NoteKeeperDatabaseContract.NoteInfoEntry.SQL_CREATE_TABLE);
 
         DatabaseDataWorker worker = new DatabaseDataWorker(db);
+        worker.insertCourses();
         worker.insertSampleNotes();
     }
 
