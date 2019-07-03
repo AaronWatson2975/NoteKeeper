@@ -2,6 +2,8 @@ package aaron.watson.notekeeper;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -27,8 +29,14 @@ import aaron.watson.notekeeper.course.CourseRecyclerAdapter;
 import aaron.watson.notekeeper.data.DataManager;
 import aaron.watson.notekeeper.note.NoteActivity;
 import aaron.watson.notekeeper.note.NoteInfo;
+import aaron.watson.notekeeper.note.NoteKeeperDatabaseContract;
 import aaron.watson.notekeeper.note.NoteKeeperOpenHelper;
 import aaron.watson.notekeeper.note.NoteRecyclerAdapter;
+
+import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.NoteInfoEntry.COLUMN_COURSE_ID;
+import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.NoteInfoEntry.COLUMN_NOTE_TEXT;
+import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.NoteInfoEntry.COLUMN_NOTE_TITLE;
+import static android.provider.BaseColumns._ID;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,8 +89,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        mNoteRecyclerAdapter.notifyDataSetChanged();
+        loadNotes();
         updateNavHeader();
+    }
+
+    private void loadNotes() {
+        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
+        final String[] noteColumns = {
+                COLUMN_NOTE_TITLE,
+                COLUMN_COURSE_ID,
+                _ID};
+
+        String noteOrderBy = COLUMN_COURSE_ID + "," + COLUMN_NOTE_TITLE;
+
+        final Cursor noteCursor = db.query(NoteKeeperDatabaseContract.NoteInfoEntry.TABLE_NAME, noteColumns,
+                null, null, null, null, noteOrderBy);
+
+        mNoteRecyclerAdapter.changeCursor(noteCursor);
     }
 
     private void updateNavHeader() {
@@ -106,8 +129,7 @@ public class MainActivity extends AppCompatActivity
         mCoursesLayoutManager = new GridLayoutManager(this,
                 getResources().getInteger(R.integer.course_grid_span));
 
-        List<NoteInfo> notes = DataManager.getInstance().getNotes();
-        mNoteRecyclerAdapter = new NoteRecyclerAdapter(this, notes);
+        mNoteRecyclerAdapter = new NoteRecyclerAdapter(this, null);
 
         List<CourseInfo> courses = DataManager.getInstance().getCourses();
         mCourseRecyclerAdapter = new CourseRecyclerAdapter(this, courses);
