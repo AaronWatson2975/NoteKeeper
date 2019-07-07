@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class ManifestTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.

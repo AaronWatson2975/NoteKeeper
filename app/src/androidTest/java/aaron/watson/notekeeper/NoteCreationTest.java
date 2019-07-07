@@ -1,4 +1,4 @@
-/*package aaron.watson.notekeeper;
+package aaron.watson.notekeeper;
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
@@ -67,11 +67,3 @@ public class NoteCreationTest {
         assertEquals(noteText, note.getText());
     }
 }
-
-
-*/
-
-
-
-
-

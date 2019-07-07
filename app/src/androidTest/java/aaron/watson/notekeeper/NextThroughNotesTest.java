@@ -1,17 +1,15 @@
-/* package aaron.watson.notekeeper;
+/** package aaron.watson.notekeeper;
 
 import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.espresso.contrib.NavigationViewActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
-import android.support.v7.widget.RecyclerView;
 
 import org.junit.Rule;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.AllOf.allOf;
-import static org.junit.Assert.*;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.*;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
@@ -39,7 +37,7 @@ public class NextThroughNotesTest {
             NoteInfo note = notes.get(index);
 
             onView(withId(R.id.spinner_courses)).check(
-                    matches(withSpinnerText(note.getCourse().getTitle()));
+                    matches(withSpinnerText(note.getCourse().getTitle())));
 
             onView(withId(R.id.text_note_title)).check(matches(withText(note.getTitle())));
             onView(withId(R.id.text_note_text)).check(matches(withText(note.getText())));
@@ -51,5 +49,4 @@ public class NextThroughNotesTest {
         onView(withId(R.id.action_next)).check(matches(not(isEnabled())));
         pressBack();
     }
-}
-*/
+} */
