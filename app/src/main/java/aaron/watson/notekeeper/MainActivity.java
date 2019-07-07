@@ -33,7 +33,6 @@ import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.course.CourseRecyclerAdapter;
 import aaron.watson.notekeeper.data.DataManager;
 import aaron.watson.notekeeper.note.NoteActivity;
-import aaron.watson.notekeeper.note.NoteKeeperDatabaseContract;
 import aaron.watson.notekeeper.note.NoteKeeperOpenHelper;
 import aaron.watson.notekeeper.note.NoteRecyclerAdapter;
 
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
     private NoteRecyclerAdapter mNoteRecyclerAdapter;
     private RecyclerView mRecyclerItems;
-    private Cursor mNoteCursor;
     private LinearLayoutManager mNotesLayoutManager;
     private CourseRecyclerAdapter mCourseRecyclerAdapter;
     private GridLayoutManager mCoursesLayoutManager;
@@ -94,21 +92,6 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         getLoaderManager().restartLoader(LOADER_NOTES, null, this);
         updateNavHeader();
-    }
-
-    private void loadNotes() {
-        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
-        final String[] noteColumns = {
-                NoteInfoEntry.COLUMN_NOTE_TITLE,
-                NoteInfoEntry.COLUMN_COURSE_ID,
-                NoteInfoEntry._ID};
-
-        String noteOrderBy = NoteInfoEntry.COLUMN_COURSE_ID + "," + NoteInfoEntry.COLUMN_NOTE_TITLE;
-
-        final Cursor noteCursor = db.query(NoteInfoEntry.TABLE_NAME, noteColumns,
-                null, null, null, null, noteOrderBy);
-
-        mNoteRecyclerAdapter.changeCursor(noteCursor);
     }
 
     private void updateNavHeader() {

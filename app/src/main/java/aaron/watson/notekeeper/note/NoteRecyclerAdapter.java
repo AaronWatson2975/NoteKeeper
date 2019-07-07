@@ -9,14 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.List;
-
 import aaron.watson.notekeeper.R;
 
 import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
-import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.NoteInfoEntry.COLUMN_COURSE_ID;
-import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.NoteInfoEntry.COLUMN_NOTE_TITLE;
 
 public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapter.ViewHolder>{
 
@@ -40,7 +35,7 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
         }
         // Get column indexes from mCursor
         mCoursePos = mCursor.getColumnIndex(CourseInfoEntry.COLUMN_COURSE_TITLE);
-        mNoteTitlePos = mCursor.getColumnIndex(COLUMN_NOTE_TITLE);
+        mNoteTitlePos = mCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
         mIdPos = mCursor.getColumnIndex(NoteInfoEntry._ID);
     }
 

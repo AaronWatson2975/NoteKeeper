@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.LoaderManager;
@@ -96,46 +95,6 @@ public class NoteActivity extends AppCompatActivity
 
         Log.d(TAG, "onCreate");
     }
-
-    private void loadCourseData() {
-        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
-        String[] courseColumns = {
-                CourseInfoEntry.COLUMN_COURSE_TITLE,
-                CourseInfoEntry.COLUMN_COURSE_ID,
-                CourseInfoEntry._ID
-        };
-
-        Cursor cursor = db.query(CourseInfoEntry.TABLE_NAME, courseColumns,
-                null, null, null, null, CourseInfoEntry.COLUMN_COURSE_TITLE);
-
-        mAdapterCourses.changeCursor(cursor);
-    }
-
-    private void loadNoteData() {
-        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
-
-        String courseId = "android_intents";
-        String titleStart = "dynamic";
-
-        String selection = NoteInfoEntry._ID + " = ?";
-
-        String[] selectionArgs = {Integer.toString(mNoteId)};
-
-        String[] noteColumns = {
-                NoteInfoEntry.COLUMN_COURSE_ID,
-                NoteInfoEntry.COLUMN_NOTE_TITLE,
-                NoteInfoEntry.COLUMN_NOTE_TEXT
-        };
-        mNoteCursor = db.query(NoteInfoEntry.TABLE_NAME, noteColumns,
-                selection, selectionArgs, null, null, null);
-        mCourseIdPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
-        mNoteTitlePos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
-        mNoteTextPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TEXT);
-        mNoteCursor.moveToNext();
-
-        displayNote();
-    }
-
 
     private void restoreOriginalNoteValues(Bundle savedInstanceState) {
         mOriginalNoteCourseId = savedInstanceState.getString(ORIGINAL_NOTE_COURSE_ID);
@@ -377,7 +336,7 @@ public class NoteActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         if(loader.getId() == LOADER_NOTES) {
             loadFinishedNotes(data);
         } else if(loader.getId() == LOADER_COURSES) {
@@ -388,7 +347,7 @@ public class NoteActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLoaderReset(android.content.Loader<Cursor> loader) {
+    public void onLoaderReset(Loader<Cursor> loader) {
         if(loader.getId() == LOADER_NOTES) {
             if(mNoteCursor != null) {
                 mNoteCursor.close();
