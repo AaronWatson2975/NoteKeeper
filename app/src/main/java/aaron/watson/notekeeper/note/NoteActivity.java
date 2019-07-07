@@ -45,7 +45,7 @@ public class NoteActivity extends AppCompatActivity
     private String mOriginalNoteCourseId;
     private String mOriginalNoteTitle;
     private String mOriginalNoteText;
-    private NoteKeeperOpenHelper mDbOpenHelper;
+    private NoteKeeperDatabaseOpenHelper mDbOpenHelper;
     private Cursor mNoteCursor;
     private int mCourseIdPos;
     private int mNoteTitlePos;
@@ -67,7 +67,7 @@ public class NoteActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mDbOpenHelper = new NoteKeeperOpenHelper(this);
+        mDbOpenHelper = new NoteKeeperDatabaseOpenHelper(this);
 
         mSpinnerCourses = (Spinner) findViewById(R.id.spinner_courses);
 

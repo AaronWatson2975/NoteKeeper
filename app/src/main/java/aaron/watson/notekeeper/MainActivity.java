@@ -33,7 +33,7 @@ import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.course.CourseRecyclerAdapter;
 import aaron.watson.notekeeper.data.DataManager;
 import aaron.watson.notekeeper.note.NoteActivity;
-import aaron.watson.notekeeper.note.NoteKeeperOpenHelper;
+import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 import aaron.watson.notekeeper.note.NoteRecyclerAdapter;
 
 import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     private LinearLayoutManager mNotesLayoutManager;
     private CourseRecyclerAdapter mCourseRecyclerAdapter;
     private GridLayoutManager mCoursesLayoutManager;
-    private NoteKeeperOpenHelper mDbOpenHelper;
+    private NoteKeeperDatabaseOpenHelper mDbOpenHelper;
     public static final int LOADER_NOTES = 0;
 
     @Override
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mDbOpenHelper = new NoteKeeperOpenHelper(this);
+        mDbOpenHelper = new NoteKeeperDatabaseOpenHelper(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -6,12 +6,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import aaron.watson.notekeeper.data.DatabaseDataWorker;
 
-public class NoteKeeperOpenHelper extends SQLiteOpenHelper {
+public class NoteKeeperDatabaseOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "NoteKeeper.db";
     public static final int DATABASE_VERSION = 2;
 
-    public NoteKeeperOpenHelper(Context context) {
+    public NoteKeeperDatabaseOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

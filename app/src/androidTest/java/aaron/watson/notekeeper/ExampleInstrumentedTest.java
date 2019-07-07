@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper;
+/** package aaron.watson.notekeeper;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -18,4 +18,4 @@ public class ExampleInstrumentedTest {
 
         assertEquals("aaron.watson.notekeeper", appContext.getPackageName().substring(0,23));
     }
-}
+} */

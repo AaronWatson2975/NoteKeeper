@@ -1,20 +1,15 @@
-/*package aaron.watson.notekeeper;
+/** package aaron.watson.notekeeper;
 
-import android.support.test.espresso.ViewInteraction;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.data.DataManager;
 import aaron.watson.notekeeper.note.NoteInfo;
 import aaron.watson.notekeeper.note.NoteListActivity;
-import aaron.watson.notekeeper.R;
-
 import static org.junit.Assert.*;
 import static android.support.test.espresso.Espresso.*;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
@@ -42,8 +37,6 @@ public class NoteCreationTest {
         final CourseInfo course = sDataManager.getCourse("java_lang");
         final String noteTitle = "Test note title";
         final String noteText = "This is the body of our test note";
-//        ViewInteraction fabNewNote = onView(withId(R.id.fab));
-//        fabNewNote.perform(click());
         onView(withId(R.id.fab)).perform(click());
 
         onView(withId(R.id.spinner_courses)).perform(click());
@@ -66,12 +59,4 @@ public class NoteCreationTest {
         assertEquals(noteTitle, note.getTitle());
         assertEquals(noteText, note.getText());
     }
-}
-
-
-*/
-
-
-
-
-
+} */

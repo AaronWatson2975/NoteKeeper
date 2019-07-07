@@ -9,7 +9,7 @@ import java.util.List;
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.ModuleInfo;
 import aaron.watson.notekeeper.note.NoteInfo;
-import aaron.watson.notekeeper.note.NoteKeeperOpenHelper;
+import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 
 import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
 
@@ -26,7 +26,7 @@ public class DataManager {
         return ourInstance;
     }
 
-    public static void loadFromDatabase(NoteKeeperOpenHelper dbHelper) {
+    public static void loadFromDatabase(NoteKeeperDatabaseOpenHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         final String[] courseColumns = {
                 CourseInfoEntry.COLUMN_COURSE_ID,
