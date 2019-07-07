@@ -14,15 +14,12 @@ import java.util.List;
 import aaron.watson.notekeeper.R;
 
 public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAdapter.ViewHolder>{
-
-    private final Context mContext;
     private final List<CourseInfo> mCourses;
     private final LayoutInflater mLayoutInflater;
 
-    public CourseRecyclerAdapter(Context mConext, List<CourseInfo> courses) {
-        this.mContext = mConext;
+    public CourseRecyclerAdapter(Context context, List<CourseInfo> courses) {
         mCourses = courses;
-        mLayoutInflater = LayoutInflater.from(mContext);
+        mLayoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
