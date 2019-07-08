@@ -16,7 +16,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.*;
 import static android.support.test.espresso.assertion.ViewAssertions.*;
 import java.util.List;
 
-
+import aaron.watson.notekeeper.data.DatabaseManager;
+import aaron.watson.notekeeper.note.NoteInfo;
 
 
 public class NextThroughNotesTest {
@@ -31,7 +32,7 @@ public class NextThroughNotesTest {
         onView(withId(R.id.nav_notes)).perform(NavigationViewActions.navigateTo(R.id.nav_notes));
         onView(withId(R.id.list_items)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        List<NoteInfo> notes = DataManager.getInstance().getNotes();
+        List<NoteInfo> notes = DatabaseManager.getInstance().getNotes();
 
         for(int index = 0; index < notes.size(); index++) {
             NoteInfo note = notes.get(index);

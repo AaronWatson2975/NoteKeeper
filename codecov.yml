@@ -16,5 +16,5 @@ ignore:
   - "**/*ViewPager*.*"
   - "**/*ViewHolder*.*"
   - "**/*Module*.*"
-
-  
+  - "**/*Database*.*"
+  - "**/Database*.*"
