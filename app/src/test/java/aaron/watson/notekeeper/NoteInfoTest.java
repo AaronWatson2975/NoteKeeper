@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import aaron.watson.notekeeper.course.CourseInfo;
-import aaron.watson.notekeeper.data.DataManager;
+import aaron.watson.notekeeper.data.DatabaseManager;
 import aaron.watson.notekeeper.note.NoteInfo;
 
 /**
@@ -17,24 +17,24 @@ import aaron.watson.notekeeper.note.NoteInfo;
 
 public class NoteInfoTest {
 
-    static DataManager sDataManager;
+    static DatabaseManager sDatabaseManager;
 
     @BeforeClass
     public static void classSetUp() throws Exception {
-        sDataManager = DataManager.getInstance();
+        sDatabaseManager = DatabaseManager.getInstance();
     }
 
     @Before
     public void setUp() throws Exception {
-        sDataManager.getNotes().clear();
-        sDataManager.initializeExampleNotes();
+        sDatabaseManager.getNotes().clear();
+        sDatabaseManager.initializeExampleNotes();
     }
 
 
     @Test
     public void NoteInfoTest() {
 
-        CourseInfo course = sDataManager.getCourse("android_async");
+        CourseInfo course = sDatabaseManager.getCourse("android_async");
         String title = "Test Title";
         String body = "This is the body of text for the test note.";
 
@@ -61,8 +61,8 @@ public class NoteInfoTest {
     }
 
     @Test
-    public void NoteInfoIdTest() {
-        CourseInfo course = sDataManager.getCourse("android_async");
+    public void noteInfoIdTest() {
+        CourseInfo course = sDatabaseManager.getCourse("android_async");
         String title = "Test Title";
         String body = "This is the body of text for the test note.";
         int id = 777;

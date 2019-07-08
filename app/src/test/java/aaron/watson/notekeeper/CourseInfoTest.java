@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import aaron.watson.notekeeper.course.CourseInfo;
-import aaron.watson.notekeeper.data.DataManager;
+import aaron.watson.notekeeper.data.DatabaseManager;
 
 /**
  * Created by Aaron on 2019-04-09.
@@ -20,18 +20,18 @@ import aaron.watson.notekeeper.data.DataManager;
 
 public class CourseInfoTest {
 
-    static DataManager sDataManager;
+    static DatabaseManager sDatabaseManager;
 
     @BeforeClass
     public static void classSetUp() throws Exception {
-        sDataManager = DataManager.getInstance();
+        sDatabaseManager = DatabaseManager.getInstance();
     }
 
     @Before
     public void setUp() throws Exception {
-        sDataManager.getNotes().clear();
-        sDataManager.initializeCourses();
-        sDataManager.initializeExampleNotes();
+        sDatabaseManager.getNotes().clear();
+        sDatabaseManager.initializeCourses();
+        sDatabaseManager.initializeExampleNotes();
     }
 
     @Test

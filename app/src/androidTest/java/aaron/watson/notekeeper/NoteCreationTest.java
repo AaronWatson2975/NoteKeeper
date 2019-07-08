@@ -7,7 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import aaron.watson.notekeeper.course.CourseInfo;
-import aaron.watson.notekeeper.data.DataManager;
+import aaron.watson.notekeeper.data.DatabaseManager;
 import aaron.watson.notekeeper.note.NoteInfo;
 import aaron.watson.notekeeper.note.NoteListActivity;
 import static org.junit.Assert.*;
@@ -22,10 +22,10 @@ import static android.support.test.espresso.assertion.ViewAssertions.*;
 
 @RunWith(AndroidJUnit4.class)
 public class NoteCreationTest {
-    static DataManager sDataManager;
+    static DatabaseManager sDataManager;
     @BeforeClass
     public static void classSetUp() throws Exception {
-        sDataManager = DataManager.getInstance();
+        sDataManager = DatabaseManager.getInstance();
     }
 
     @Rule

@@ -13,15 +13,15 @@ import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 
 import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
 
-public class DataManager {
-    private static DataManager ourInstance = null;
+public class DatabaseManager {
+    private static DatabaseManager ourInstance = null;
 
     private List<CourseInfo> mCourses = new ArrayList<>();
     private List<NoteInfo> mNotes = new ArrayList<>();
 
-    public static DataManager getInstance() {
+    public static DatabaseManager getInstance() {
         if(ourInstance == null) {
-            ourInstance = new DataManager();
+            ourInstance = new DatabaseManager();
         }
         return ourInstance;
     }
@@ -52,7 +52,7 @@ public class DataManager {
         int courseIdPos = cursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
         int idPos = cursor.getColumnIndex(NoteInfoEntry._ID);
 
-        DataManager dm = getInstance();
+        DatabaseManager dm = getInstance();
         dm.mNotes.clear();
         while(cursor.moveToNext()) {
             String noteTitle = cursor.getString(noteTitlePos);
@@ -71,7 +71,7 @@ public class DataManager {
         int courseIdPos = cursor.getColumnIndex(CourseInfoEntry.COLUMN_COURSE_ID);
         int courseTitlePos = cursor.getColumnIndex(CourseInfoEntry.COLUMN_COURSE_TITLE);
 
-        DataManager dm = getInstance();
+        DatabaseManager dm = getInstance();
         dm.mCourses.clear();
         while(cursor.moveToNext()) {
             String courseId = cursor.getString(courseIdPos);
@@ -144,7 +144,7 @@ public class DataManager {
         return count;
     }
 
-    private DataManager() {
+    private DatabaseManager() {
     }
 
     //region Initialization code
@@ -157,7 +157,7 @@ public class DataManager {
     }
 
     public void initializeExampleNotes() {
-        final DataManager dm = getInstance();
+        final DatabaseManager dm = getInstance();
 
         CourseInfo course = dm.getCourse("android_intents");
         course.getModule("android_intents_m01").setComplete(true);

@@ -31,7 +31,7 @@ import java.util.List;
 
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.course.CourseRecyclerAdapter;
-import aaron.watson.notekeeper.data.DataManager;
+import aaron.watson.notekeeper.data.DatabaseManager;
 import aaron.watson.notekeeper.note.NoteActivity;
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 import aaron.watson.notekeeper.note.NoteRecyclerAdapter;
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initializeDisplayContent() {
-        DataManager.loadFromDatabase(mDbOpenHelper);
+        DatabaseManager.loadFromDatabase(mDbOpenHelper);
         mRecyclerItems = (RecyclerView) findViewById(R.id.list_items);
         mNotesLayoutManager = new LinearLayoutManager(this);
         mCoursesLayoutManager = new GridLayoutManager(this,
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         mNoteRecyclerAdapter = new NoteRecyclerAdapter(this, null);
 
-        List<CourseInfo> courses = DataManager.getInstance().getCourses();
+        List<CourseInfo> courses = DatabaseManager.getInstance().getCourses();
         mCourseRecyclerAdapter = new CourseRecyclerAdapter(this, courses);
 
         displayNotes();

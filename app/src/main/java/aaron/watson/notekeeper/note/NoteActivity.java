@@ -21,7 +21,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.R;
-import aaron.watson.notekeeper.data.DataManager;
+import aaron.watson.notekeeper.data.DatabaseManager;
 
 import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
 
@@ -35,7 +35,7 @@ public class NoteActivity extends AppCompatActivity
     public static final String ORIGINAL_NOTE_TITLE = "com.jwhh.jim.notekeeper.ORIGINAL_NOTE_TITLE";
     public static final String ORIGINAL_NOTE_TEXT = "com.jwhh.jim.notekeeper.ORIGINAL_NOTE_TEXT";
     public static final int ID_NOT_SET = -1;
-    private NoteInfo mNote = new NoteInfo(DataManager.getInstance().getCourses().get(0), "", "");
+    private NoteInfo mNote = new NoteInfo(DatabaseManager.getInstance().getCourses().get(0), "", "");
     private boolean mIsNewNote;
     private Spinner mSpinnerCourses;
     private EditText mTextNoteTitle;
@@ -143,7 +143,7 @@ public class NoteActivity extends AppCompatActivity
     }
 
     private void storePreviousNoteValues() {
-        CourseInfo course = DataManager.getInstance().getCourse(mOriginalNoteCourseId);
+        CourseInfo course = DatabaseManager.getInstance().getCourse(mOriginalNoteCourseId);
         mNote.setCourse(course);
         mNote.setTitle(mOriginalNoteTitle);
         mNote.setText(mOriginalNoteText);
@@ -239,7 +239,7 @@ public class NoteActivity extends AppCompatActivity
         }
 
         Log.i(TAG, "mNoteId: " + mNoteId);
-//        mNote = DataManager.getInstance().getNotes().get(mNoteId);
+//        mNote = DatabaseManager.getInstance().getNotes().get(mNoteId);
 
     }
 
@@ -294,7 +294,7 @@ public class NoteActivity extends AppCompatActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_next);
-        int lastNoteIndex = DataManager.getInstance().getNotes().size() - 1;
+        int lastNoteIndex = DatabaseManager.getInstance().getNotes().size() - 1;
         item.setEnabled(mNoteId < lastNoteIndex);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -303,7 +303,7 @@ public class NoteActivity extends AppCompatActivity
         saveNote();
 
         ++mNoteId;
-        mNote = DataManager.getInstance().getNotes().get(mNoteId);
+        mNote = DatabaseManager.getInstance().getNotes().get(mNoteId);
 
         saveOriginalNoteValues();
         displayNote();
