@@ -1,12 +1,15 @@
 package aaron.watson.notekeeper;
 
 import android.os.Parcel;
-import android.provider.ContactsContract;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import aaron.watson.notekeeper.course.CourseInfo;
+import aaron.watson.notekeeper.data.DatabaseManager;
+import aaron.watson.notekeeper.note.NoteInfo;
 
 /**
  * Created by Aaron on 2019-04-09.
@@ -14,24 +17,24 @@ import org.junit.Test;
 
 public class NoteInfoTest {
 
-    static DataManager sDataManager;
+    private static DatabaseManager sDatabaseManager;
 
     @BeforeClass
     public static void classSetUp() throws Exception {
-        sDataManager = DataManager.getInstance();
+        sDatabaseManager = DatabaseManager.getInstance();
     }
 
     @Before
     public void setUp() throws Exception {
-        sDataManager.getNotes().clear();
-        sDataManager.initializeExampleNotes();
+        sDatabaseManager.getNotes().clear();
+        sDatabaseManager.initializeExampleNotes();
     }
 
 
     @Test
     public void NoteInfoTest() {
 
-        CourseInfo course = sDataManager.getCourse("android_async");
+        CourseInfo course = sDatabaseManager.getCourse("android_async");
         String title = "Test Title";
         String body = "This is the body of text for the test note.";
 
@@ -55,5 +58,16 @@ public class NoteInfoTest {
         Assert.assertTrue(note.equals(noteCopy));
         Assert.assertEquals(expectedCompareKey, compareKey);
         Assert.assertEquals(expectedHash, hash);
+    }
+
+    @Test
+    public void noteInfoIdTest() {
+        CourseInfo course = sDatabaseManager.getCourse("android_async");
+        String title = "Test Title";
+        String body = "This is the body of text for the test note.";
+        int id = 777;
+
+        NoteInfo note = new NoteInfo(id, course, title, body);
+        Assert.assertEquals(note.getId(), id);
     }
 }
