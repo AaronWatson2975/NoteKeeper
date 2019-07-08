@@ -17,7 +17,7 @@ import aaron.watson.notekeeper.note.NoteInfo;
 
 public class NoteInfoTest {
 
-    static DatabaseManager sDatabaseManager;
+    private static DatabaseManager sDatabaseManager;
 
     @BeforeClass
     public static void classSetUp() throws Exception {

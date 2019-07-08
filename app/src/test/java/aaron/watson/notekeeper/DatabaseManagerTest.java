@@ -13,7 +13,7 @@ import aaron.watson.notekeeper.note.NoteInfo;
 import static org.junit.Assert.*;
 
 public class DatabaseManagerTest {
-    static DatabaseManager sDatabaseManager;
+    private static DatabaseManager sDatabaseManager;
 
     @BeforeClass
     public static void classSetUp() throws Exception {
@@ -71,8 +71,6 @@ public class DatabaseManagerTest {
 
         int numberOfNotes = sDatabaseManager.getNoteCount(course);
         assertEquals(numberOfNotes, 4);
-
-        List<NoteInfo> notes = sDatabaseManager.getNotes(course);
 
         int totalNotes = sDatabaseManager.getNotes().size();
         int firstNoteHash = sDatabaseManager.getNotes().get(0).hashCode();

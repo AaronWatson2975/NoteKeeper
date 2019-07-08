@@ -20,7 +20,7 @@ import aaron.watson.notekeeper.data.DatabaseManager;
 
 public class CourseInfoTest {
 
-    static DatabaseManager sDatabaseManager;
+    private static DatabaseManager sDatabaseManager;
 
     @BeforeClass
     public static void classSetUp() throws Exception {
