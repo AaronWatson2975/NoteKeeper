@@ -59,4 +59,15 @@ public class NoteInfoTest {
         Assert.assertEquals(expectedCompareKey, compareKey);
         Assert.assertEquals(expectedHash, hash);
     }
+
+    @Test
+    public void NoteInfoIdTest() {
+        CourseInfo course = sDataManager.getCourse("android_async");
+        String title = "Test Title";
+        String body = "This is the body of text for the test note.";
+        int id = 777;
+
+        NoteInfo note = new NoteInfo(id, course, title, body);
+        Assert.assertEquals(note.getId(), id);
+    }
 }
