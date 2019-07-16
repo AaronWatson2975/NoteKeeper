@@ -36,6 +36,7 @@ import aaron.watson.notekeeper.note.NoteActivity;
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 import aaron.watson.notekeeper.note.NoteRecyclerAdapter;
 
+import static aaron.watson.notekeeper.NoteKeeperProviderContract.*;
 import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
 
 public class MainActivity extends AppCompatActivity
@@ -215,7 +216,14 @@ public class MainActivity extends AppCompatActivity
         CursorLoader loader = null;
 
         if(id == LOADER_NOTES) {
-            loader = createLoaderNotes();
+            final String[] noteColumns = {
+                    Notes.COLUMN_NOTE_TITLE,
+                    Notes._ID,
+                    Courses.COLUMN_COURSE_TITLE};
+
+            String noteOrderBy = Courses.COLUMN_COURSE_TITLE + "," + Notes.COLUMN_NOTE_TITLE;
+            loader = new CursorLoader(this, Notes.CONTENT_EXPANDED_URI, noteColumns, null,
+                    null, noteOrderBy);
         }
 
         return loader;
@@ -233,29 +241,5 @@ public class MainActivity extends AppCompatActivity
         if(loader.getId() == LOADER_NOTES) {
             mNoteRecyclerAdapter.changeCursor(null);
         }
-    }
-
-    private CursorLoader createLoaderNotes() {
-        return new CursorLoader(this) {
-            @Override
-            public Cursor loadInBackground() {
-                SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
-                final String[] noteColumns = {
-                        NoteInfoEntry.COLUMN_NOTE_TITLE,
-                        NoteInfoEntry.getQName(NoteInfoEntry._ID),
-                        CourseInfoEntry.COLUMN_COURSE_TITLE};
-
-                String noteOrderBy = CourseInfoEntry.COLUMN_COURSE_TITLE + "," + NoteInfoEntry.COLUMN_NOTE_TITLE;
-
-                // note_info JOIN course_info ON note_info.course_id = course_info.course_id
-                String tablesWithJoin = NoteInfoEntry.TABLE_NAME + " JOIN " +
-                        CourseInfoEntry.TABLE_NAME + " ON " +
-                        NoteInfoEntry.getQName(NoteInfoEntry.COLUMN_COURSE_ID) + " = " +
-                        CourseInfoEntry.getQName(CourseInfoEntry.COLUMN_COURSE_ID);
-
-                return db.query(tablesWithJoin, noteColumns,
-                        null, null, null, null, noteOrderBy);
-            }
-        };
     }
 }

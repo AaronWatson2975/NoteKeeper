@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.LoaderManager;
@@ -19,10 +20,13 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+
+import aaron.watson.notekeeper.NoteKeeperProviderContract;
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.R;
 import aaron.watson.notekeeper.data.DatabaseManager;
 
+import static aaron.watson.notekeeper.NoteKeeperProviderContract.*;
 import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
 
 public class NoteActivity extends AppCompatActivity
@@ -71,6 +75,7 @@ public class NoteActivity extends AppCompatActivity
 
         mSpinnerCourses = (Spinner) findViewById(R.id.spinner_courses);
 
+
         mAdapterCourses = new SimpleCursorAdapter(this, android.R.layout.simple_spinner_item, null,
                 new String[] {CourseInfoEntry.COLUMN_COURSE_TITLE}, new int[] {android.R.id.text1}, 0);
 
@@ -78,6 +83,7 @@ public class NoteActivity extends AppCompatActivity
         mSpinnerCourses.setAdapter(mAdapterCourses);
 
         getLoaderManager().initLoader(LOADER_COURSES, null, this);
+
 
         readDisplayStateValues();
         if(savedInstanceState == null) {
@@ -381,20 +387,15 @@ public class NoteActivity extends AppCompatActivity
 
     private CursorLoader createLoaderCourses() {
         mCoursesQueryFinished = false;
-        return new CursorLoader(this) {
-            @Override
-            public Cursor loadInBackground() {
-                SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
-                String[] courseColumns = {
-                        CourseInfoEntry.COLUMN_COURSE_TITLE,
-                        CourseInfoEntry.COLUMN_COURSE_ID,
-                        CourseInfoEntry._ID
-                };
 
-                return db.query(CourseInfoEntry.TABLE_NAME, courseColumns,
-                        null, null, null, null, CourseInfoEntry.COLUMN_COURSE_TITLE);
-            }
+        Uri uri = Courses.CONTENT_URI;
+        String[] courseColumns = {
+                Courses.COLUMN_COURSE_TITLE,
+                Courses.COLUMN_COURSE_ID,
+                Courses._ID
         };
+
+        return new CursorLoader(this, uri, courseColumns, null, null, Courses.COLUMN_COURSE_TITLE);
     }
 
     private void loadFinishedNotes(Cursor data) {
