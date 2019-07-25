@@ -9,10 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
-
-import java.nio.file.AccessDeniedException;
 import java.security.AccessControlException;
-
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.CourseInfoEntry;
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 
@@ -105,6 +102,8 @@ public class NoteKeeperProvider extends ContentProvider {
             case NOTES_EXPANDED_ROW:
                 mimeType = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + MIME_VENDOR_TYPE + Notes.PATH_EXPANDED;
                 break;
+            default:
+                break;
         }
         return mimeType;
     }
@@ -126,6 +125,8 @@ public class NoteKeeperProvider extends ContentProvider {
                 break;
             case NOTES_EXPANDED:
                 throw new AccessControlException("This is a read-only table.");
+            default:
+                break;
         }
 
         return rowUri;
@@ -180,6 +181,8 @@ public class NoteKeeperProvider extends ContentProvider {
                 rowSelection = NoteInfoEntry.getQName(NoteInfoEntry._ID) + " = ?";
                 rowSelectionArgs = new String[]{Long.toString(rowId)};
                 cursor = notesExpandedQuery(db, projection, rowSelection, rowSelectionArgs, null);
+                break;
+            default:
                 break;
         }
         return cursor;
@@ -237,6 +240,8 @@ public class NoteKeeperProvider extends ContentProvider {
                 break;
             case NOTES_EXPANDED_ROW:
                 throw new AccessControlException("This is a read-only table.");
+            default:
+                break;
         }
 
         return nRows;
