@@ -9,6 +9,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
+
+import java.nio.file.AccessDeniedException;
+import java.security.AccessControlException;
+
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.CourseInfoEntry;
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 
@@ -55,7 +59,7 @@ public class NoteKeeperProvider extends ContentProvider {
                 nRows = db.delete(NoteInfoEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case NOTES_EXPANDED:
-                // throw exception saying that this is a read-only table
+                throw new AccessControlException("This is a read-only table.");
             case COURSES_ROW:
                 rowId = ContentUris.parseId(uri);
                 rowSelection = CourseInfoEntry._ID + " = ?";
@@ -69,8 +73,7 @@ public class NoteKeeperProvider extends ContentProvider {
                 nRows = db.delete(NoteInfoEntry.TABLE_NAME, rowSelection, rowSelectionArgs);
                 break;
             case NOTES_EXPANDED_ROW:
-                // throw exception saying that this is a read-only table
-                break;
+                throw new AccessControlException("This is a read-only table.");
             default:
                 break;
         }
@@ -122,8 +125,7 @@ public class NoteKeeperProvider extends ContentProvider {
                 rowUri = ContentUris.withAppendedId(Courses.CONTENT_URI, rowId);
                 break;
             case NOTES_EXPANDED:
-                // TODO: throw exception saying that this is a read-only table
-                break;
+                throw new AccessControlException("This is a read-only table.");
         }
 
         return rowUri;
@@ -220,7 +222,7 @@ public class NoteKeeperProvider extends ContentProvider {
                 nRows = db.update(NoteInfoEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             case NOTES_EXPANDED:
-                // TODO: throw exception saying that this is a read-only table
+                throw new AccessControlException("This is a read-only table.");
             case COURSES_ROW:
                 rowId = ContentUris.parseId(uri);
                 rowSelection = CourseInfoEntry._ID + " = ?";
@@ -234,8 +236,7 @@ public class NoteKeeperProvider extends ContentProvider {
                 nRows = db.update(NoteInfoEntry.TABLE_NAME, values, rowSelection, rowSelectionArgs);
                 break;
             case NOTES_EXPANDED_ROW:
-                // TODO: throw exception saying that this is a read-only table
-                break;
+                throw new AccessControlException("This is a read-only table.");
         }
 
         return nRows;
