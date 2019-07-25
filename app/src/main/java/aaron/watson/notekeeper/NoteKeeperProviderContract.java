@@ -4,9 +4,10 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 public final class NoteKeeperProviderContract {
-    private NoteKeeperProviderContract() {}
     public static final String AUTHORITY = "aaron.watson.notekeeper.provider";
     public static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
+
+    private NoteKeeperProviderContract() {}
 
     protected interface CoursesIdColumns {
         public static final String COLUMN_COURSE_ID = "course_id";

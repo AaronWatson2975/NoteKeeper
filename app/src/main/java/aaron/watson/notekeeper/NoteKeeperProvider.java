@@ -17,7 +17,7 @@ import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
 
 public class NoteKeeperProvider extends ContentProvider {
 
-    private static final String MIME_VENDOR_TYPE = "vnd." + NoteKeeperProviderContract.AUTHORITY + ".";
+    private static final String MIME_VENDOR_TYPE = "vnd." + AUTHORITY + ".";
     private NoteKeeperDatabaseOpenHelper mDbOpenHelper;
 
     private static UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -30,15 +30,12 @@ public class NoteKeeperProvider extends ContentProvider {
     private static final int NOTES_EXPANDED_ROW = 5;
 
     static {
-        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Courses.PATH, COURSES);
-        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Notes.PATH, NOTES);
-        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Notes.PATH_EXPANDED, NOTES_EXPANDED);
-        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Courses.PATH + "/#", COURSES_ROW);
-        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Notes.PATH + "/#", NOTES_ROW);
-        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Notes.PATH_EXPANDED + "/#", NOTES_EXPANDED_ROW);
-    }
-
-    public NoteKeeperProvider() {
+        sUriMatcher.addURI(AUTHORITY, Courses.PATH, COURSES);
+        sUriMatcher.addURI(AUTHORITY, Notes.PATH, NOTES);
+        sUriMatcher.addURI(AUTHORITY, Notes.PATH_EXPANDED, NOTES_EXPANDED);
+        sUriMatcher.addURI(AUTHORITY, Courses.PATH + "/#", COURSES_ROW);
+        sUriMatcher.addURI(AUTHORITY, Notes.PATH + "/#", NOTES_ROW);
+        sUriMatcher.addURI(AUTHORITY, Notes.PATH_EXPANDED + "/#", NOTES_EXPANDED_ROW);
     }
 
     @Override
@@ -73,6 +70,8 @@ public class NoteKeeperProvider extends ContentProvider {
                 break;
             case NOTES_EXPANDED_ROW:
                 // throw exception saying that this is a read-only table
+                break;
+            default:
                 break;
         }
 

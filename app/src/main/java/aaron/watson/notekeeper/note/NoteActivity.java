@@ -6,13 +6,10 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.LoaderManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,8 +18,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-
-import aaron.watson.notekeeper.NoteKeeperProviderContract;
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.R;
 import aaron.watson.notekeeper.data.DatabaseManager;
@@ -100,39 +95,6 @@ public class NoteActivity extends AppCompatActivity
             getLoaderManager().initLoader(LOADER_NOTES, null, this);
 
     }
-
-    private void loadCourseData() {
-        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
-        String[] courseColumns = {
-                CourseInfoEntry.COLUMN_COURSE_TITLE,
-                CourseInfoEntry.COLUMN_COURSE_ID,
-                CourseInfoEntry._ID
-        };
-        Cursor cursor = db.query(CourseInfoEntry.TABLE_NAME, courseColumns,
-                null, null, null, null, CourseInfoEntry.COLUMN_COURSE_TITLE);
-        mAdapterCourses.changeCursor(cursor);
-    }
-
-    private void loadNoteData() {
-        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
-
-        String selection = NoteInfoEntry._ID + " = ?";
-        String[] selectionArgs = {Integer.toString(mNoteId)};
-
-        String[] noteColumns = {
-                NoteInfoEntry.COLUMN_COURSE_ID,
-                NoteInfoEntry.COLUMN_NOTE_TITLE,
-                NoteInfoEntry.COLUMN_NOTE_TEXT
-        };
-        mNoteCursor = db.query(NoteInfoEntry.TABLE_NAME, noteColumns,
-                selection, selectionArgs, null, null, null);
-        mCourseIdPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
-        mNoteTitlePos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
-        mNoteTextPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TEXT);
-        mNoteCursor.moveToNext();
-        displayNote();
-    }
-
 
     private void restoreOriginalNoteValues(Bundle savedInstanceState) {
         mOriginalNoteCourseId = savedInstanceState.getString(ORIGINAL_NOTE_COURSE_ID);

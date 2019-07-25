@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -26,18 +25,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import java.util.List;
-
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.course.CourseRecyclerAdapter;
 import aaron.watson.notekeeper.data.DatabaseManager;
 import aaron.watson.notekeeper.note.NoteActivity;
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 import aaron.watson.notekeeper.note.NoteRecyclerAdapter;
-
 import static aaron.watson.notekeeper.NoteKeeperProviderContract.*;
-import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
