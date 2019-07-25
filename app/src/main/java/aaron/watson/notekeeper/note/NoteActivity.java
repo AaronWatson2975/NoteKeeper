@@ -15,7 +15,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import aaron.watson.notekeeper.course.CourseInfo;
@@ -220,13 +222,44 @@ public class NoteActivity extends AppCompatActivity
     }
 
     private void createNewNote() {
+        AsyncTask<ContentValues, Integer, Uri> task = new AsyncTask<ContentValues, Integer, Uri>() {
+            private ProgressBar mProgressBar;
+
+            @Override
+            protected void onPreExecute() {
+                mProgressBar = findViewById(R.id.progress_bar);
+                mProgressBar.setVisibility(View.VISIBLE);
+                mProgressBar.setProgress(1);
+            }
+
+            @Override
+            protected Uri doInBackground(ContentValues... contentValues) {
+                ContentValues insertValues = contentValues[0];
+                publishProgress(2);
+                Uri rowUri = getContentResolver().insert(Notes.CONTENT_URI, insertValues);
+                publishProgress(3);
+                return rowUri;
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                int progressValue = values[0];
+                mProgressBar.setProgress(progressValue);
+            }
+
+            @Override
+            protected void onPostExecute(Uri uri) {
+                mNoteUri = uri;
+                mProgressBar.setVisibility(View.GONE);
+            }
+        };
+
         ContentValues values = new ContentValues();
         values.put(Notes.COLUMN_COURSE_ID, "");
         values.put(Notes.COLUMN_NOTE_TITLE, "");
         values.put(Notes.COLUMN_NOTE_TEXT, "");
 
-        mNoteUri = getContentResolver().insert(Notes.CONTENT_URI, values);
-
+        task.execute(values);
     }
 
     @Override
