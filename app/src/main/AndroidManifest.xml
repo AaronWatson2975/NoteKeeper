@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="aaron.watson.notekeeper">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name=".NoteKeeperProvider"
+            android:authorities="aaron.watson.notekeeper.provider"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity
             android:name=".SettingsActivity"
@@ -31,7 +38,7 @@
         <activity
             android:name=".note.NoteListActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".note.NoteActivity"
             android:label="@string/title_activity_note"
