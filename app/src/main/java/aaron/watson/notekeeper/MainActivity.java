@@ -34,9 +34,12 @@ import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.course.CourseRecyclerAdapter;
 import aaron.watson.notekeeper.data.DatabaseManager;
 import aaron.watson.notekeeper.note.NoteActivity;
+import aaron.watson.notekeeper.note.NoteBackup;
+import aaron.watson.notekeeper.note.NoteBackupService;
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 import aaron.watson.notekeeper.note.NoteRecyclerAdapter;
 import static aaron.watson.notekeeper.NoteKeeperProviderContract.*;
+import static aaron.watson.notekeeper.note.NoteBackup.ALL_COURSES;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
@@ -195,6 +198,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
+        } else if(id == R.id.action_backup_notes) {
+            backupNotes();
         }
 
         return super.onOptionsItemSelected(item);
@@ -220,6 +225,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void backupNotes() {
+        Intent intent = new Intent(this, NoteBackupService.class);
+        intent.putExtra(NoteBackupService.EXTRA_COURSE_ID, ALL_COURSES);
+        startService(intent);
     }
 
     private void handleShare() {

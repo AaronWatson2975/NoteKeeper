@@ -9,19 +9,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
-
-import java.nio.file.AccessDeniedException;
 import java.security.AccessControlException;
-
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.CourseInfoEntry;
+import aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.NoteInfoEntry;
+import aaron.watson.notekeeper.NoteKeeperProviderContract.Courses;
+import aaron.watson.notekeeper.NoteKeeperProviderContract.Notes;
 import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
-
-import static aaron.watson.notekeeper.NoteKeeperProviderContract.*;
-import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
 
 public class NoteKeeperProvider extends ContentProvider {
 
-    private static final String MIME_VENDOR_TYPE = "vnd." + AUTHORITY + ".";
+    private static final String MIME_VENDOR_TYPE = "vnd." + NoteKeeperProviderContract.AUTHORITY + ".";
     private NoteKeeperDatabaseOpenHelper mDbOpenHelper;
 
     private static UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -34,12 +31,15 @@ public class NoteKeeperProvider extends ContentProvider {
     private static final int NOTES_EXPANDED_ROW = 5;
 
     static {
-        sUriMatcher.addURI(AUTHORITY, Courses.PATH, COURSES);
-        sUriMatcher.addURI(AUTHORITY, Notes.PATH, NOTES);
-        sUriMatcher.addURI(AUTHORITY, Notes.PATH_EXPANDED, NOTES_EXPANDED);
-        sUriMatcher.addURI(AUTHORITY, Courses.PATH + "/#", COURSES_ROW);
-        sUriMatcher.addURI(AUTHORITY, Notes.PATH + "/#", NOTES_ROW);
-        sUriMatcher.addURI(AUTHORITY, Notes.PATH_EXPANDED + "/#", NOTES_EXPANDED_ROW);
+        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Courses.PATH, COURSES);
+        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Notes.PATH, NOTES);
+        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Notes.PATH_EXPANDED, NOTES_EXPANDED);
+        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Courses.PATH + "/#", COURSES_ROW);
+        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Notes.PATH + "/#", NOTES_ROW);
+        sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Notes.PATH_EXPANDED + "/#", NOTES_EXPANDED_ROW);
+    }
+
+    public NoteKeeperProvider() {
     }
 
     @Override
@@ -59,7 +59,7 @@ public class NoteKeeperProvider extends ContentProvider {
                 nRows = db.delete(NoteInfoEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case NOTES_EXPANDED:
-                throw new AccessControlException("This is a read-only table.");
+                throw new AccessControlException("read-only table");
             case COURSES_ROW:
                 rowId = ContentUris.parseId(uri);
                 rowSelection = CourseInfoEntry._ID + " = ?";
@@ -73,7 +73,7 @@ public class NoteKeeperProvider extends ContentProvider {
                 nRows = db.delete(NoteInfoEntry.TABLE_NAME, rowSelection, rowSelectionArgs);
                 break;
             case NOTES_EXPANDED_ROW:
-                throw new AccessControlException("This is a read-only table.");
+                throw new AccessControlException("read-only table");
             default:
                 break;
         }
@@ -105,6 +105,8 @@ public class NoteKeeperProvider extends ContentProvider {
             case NOTES_EXPANDED_ROW:
                 mimeType = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + MIME_VENDOR_TYPE + Notes.PATH_EXPANDED;
                 break;
+            default:
+                break;
         }
         return mimeType;
     }
@@ -125,7 +127,9 @@ public class NoteKeeperProvider extends ContentProvider {
                 rowUri = ContentUris.withAppendedId(Courses.CONTENT_URI, rowId);
                 break;
             case NOTES_EXPANDED:
-                throw new AccessControlException("This is a read-only table.");
+                throw new AccessControlException("read-only table");
+            default:
+                break;
         }
 
         return rowUri;
@@ -181,6 +185,8 @@ public class NoteKeeperProvider extends ContentProvider {
                 rowSelectionArgs = new String[]{Long.toString(rowId)};
                 cursor = notesExpandedQuery(db, projection, rowSelection, rowSelectionArgs, null);
                 break;
+            default:
+                break;
         }
         return cursor;
     }
@@ -191,7 +197,7 @@ public class NoteKeeperProvider extends ContentProvider {
         String[] columns = new String[projection.length];
         for(int idx=0; idx < projection.length; idx++) {
             columns[idx] = projection[idx].equals(BaseColumns._ID) ||
-                    projection[idx].equals(CoursesIdColumns.COLUMN_COURSE_ID) ?
+                    projection[idx].equals(NoteKeeperProviderContract.CoursesIdColumns.COLUMN_COURSE_ID) ?
                     NoteInfoEntry.getQName(projection[idx]) : projection[idx];
         }
 
@@ -222,7 +228,7 @@ public class NoteKeeperProvider extends ContentProvider {
                 nRows = db.update(NoteInfoEntry.TABLE_NAME, values, selection, selectionArgs);
                 break;
             case NOTES_EXPANDED:
-                throw new AccessControlException("This is a read-only table.");
+                throw new AccessControlException("read-only table");
             case COURSES_ROW:
                 rowId = ContentUris.parseId(uri);
                 rowSelection = CourseInfoEntry._ID + " = ?";
@@ -236,7 +242,9 @@ public class NoteKeeperProvider extends ContentProvider {
                 nRows = db.update(NoteInfoEntry.TABLE_NAME, values, rowSelection, rowSelectionArgs);
                 break;
             case NOTES_EXPANDED_ROW:
-                throw new AccessControlException("This is a read-only table.");
+                throw new AccessControlException("read-only table");
+            default:
+                break;
         }
 
         return nRows;

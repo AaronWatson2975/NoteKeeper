@@ -14,34 +14,10 @@ import android.support.v4.app.NotificationCompat;
 import aaron.watson.notekeeper.MainActivity;
 import aaron.watson.notekeeper.R;
 
-/**
- * Helper class for showing and canceling note reminder
- * notifications.
- * <p>
- * This class makes heavy use of the {@link NotificationCompat.Builder} helper
- * class to create notifications in a backward-compatible way.
- */
 public class NoteReminderNotification {
-    /**
-     * The unique identifier for this type of notification.
-     */
+
     private static final String NOTIFICATION_TAG = "NoteReminder";
 
-    /**
-     * Shows the notification, or updates a previously shown notification of
-     * this type, with the given parameters.
-     * <p>
-     * TODO: Customize this method's arguments to present relevant content in
-     * the notification.
-     * <p>
-     * TODO: Customize the contents of this method to tweak the behavior and
-     * presentation of note reminder notifications. Make
-     * sure to follow the
-     * <a href="https://developer.android.com/design/patterns/notifications.html">
-     * Notification design guidelines</a> when doing so.
-     *
-     * @see #cancel(Context)
-     */
     public static void notify(final Context context, final String noteTitle,
                               final String noteText, int noteId) {
         final Resources res = context.getResources();
@@ -52,6 +28,9 @@ public class NoteReminderNotification {
 
         Intent noteActivityIntent = new Intent(context, NoteActivity.class);
         noteActivityIntent.putExtra(NoteActivity.NOTE_ID, noteId);
+
+        Intent backupServiceIntent = new Intent(context, NoteBackupService.class);
+        backupServiceIntent.putExtra(NoteBackupService.EXTRA_COURSE_ID, NoteBackup.ALL_COURSES);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
 
@@ -107,6 +86,12 @@ public class NoteReminderNotification {
                         context,
                         0,
                         new Intent(context, MainActivity.class),
+                        PendingIntent.FLAG_UPDATE_CURRENT))
+
+                .addAction(0, "Backup notes", PendingIntent.getService(
+                        context,
+                        0,
+                        backupServiceIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT))
 
                 .setAutoCancel(true);
