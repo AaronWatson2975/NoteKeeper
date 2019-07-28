@@ -23,7 +23,6 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-
 import aaron.watson.notekeeper.android.broadcast.CourseEventBroadcastHelper;
 import aaron.watson.notekeeper.android.broadcast.NoteReminderReceiver;
 import aaron.watson.notekeeper.course.CourseInfo;
@@ -31,7 +30,6 @@ import aaron.watson.notekeeper.R;
 import aaron.watson.notekeeper.database.DatabaseManager;
 import aaron.watson.notekeeper.database.NoteKeeperDatabaseOpenHelper;
 import aaron.watson.notekeeper.note.NoteInfo;
-import aaron.watson.notekeeper.android.notifications.NoteReminderNotification;
 
 import static aaron.watson.notekeeper.android.content.NoteKeeperProviderContract.*;
 import static aaron.watson.notekeeper.database.NoteKeeperDatabaseContract.*;

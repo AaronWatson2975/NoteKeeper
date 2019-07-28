@@ -11,9 +11,6 @@ public class NoteUploaderJobService extends JobService {
     public static final String EXTRA_DATA_URI = "aaron.watson.notekeeper.extras.DATA_URI";
     private NoteUploader mNoteUploader;
 
-    public NoteUploaderJobService() {
-    }
-
     @Override
     public boolean onStartJob(JobParameters params) {
         AsyncTask<JobParameters, Void, Void> task = new AsyncTask<JobParameters, Void, Void>() {

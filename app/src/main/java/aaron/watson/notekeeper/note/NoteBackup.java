@@ -37,7 +37,7 @@ public class NoteBackup {
             String noteTitle = cursor.getString(noteTitlePos);
             String noteText = cursor.getString(noteTextPos);
 
-            if(!noteTitle.equals("")) {
+            if("".equals(noteTitle)) {
                 Log.i(TAG, ">>>Backing Up Note<<< " + courseId + "|" + noteTitle + "|" + noteText);
                 simulateLongRunningWork();
             }

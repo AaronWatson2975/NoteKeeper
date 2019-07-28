@@ -20,3 +20,6 @@ ignore:
   - "**/Database*.*"
   - "**/*Provider*.*"
   - "**/*Notification*.*"
+  - "**/*android*"
+  - "**/NoteUploader.java"
+  - "**/NoteBackup.java"
