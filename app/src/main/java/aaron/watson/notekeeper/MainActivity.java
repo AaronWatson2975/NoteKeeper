@@ -1,12 +1,19 @@
 package aaron.watson.notekeeper;
 
 import android.app.LoaderManager;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.PersistableBundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,21 +28,26 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import java.util.List;
 import aaron.watson.notekeeper.course.CourseInfo;
-import aaron.watson.notekeeper.course.CourseRecyclerAdapter;
-import aaron.watson.notekeeper.data.DatabaseManager;
-import aaron.watson.notekeeper.note.NoteActivity;
-import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
-import aaron.watson.notekeeper.note.NoteRecyclerAdapter;
-import static aaron.watson.notekeeper.NoteKeeperProviderContract.*;
+import aaron.watson.notekeeper.android.adapters.CourseRecyclerAdapter;
+import aaron.watson.notekeeper.database.DatabaseManager;
+import aaron.watson.notekeeper.android.job.NoteUploaderJobService;
+import aaron.watson.notekeeper.android.activities.NoteActivity;
+import aaron.watson.notekeeper.android.service.NoteBackupService;
+import aaron.watson.notekeeper.database.NoteKeeperDatabaseOpenHelper;
+import aaron.watson.notekeeper.android.adapters.NoteRecyclerAdapter;
+import static aaron.watson.notekeeper.android.content.NoteKeeperProviderContract.*;
+import static aaron.watson.notekeeper.note.NoteBackup.ALL_COURSES;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, LoaderManager.LoaderCallbacks<Cursor> {
+    public static final int NOTE_UPLOADER_JOB_ID = 1;
     private NoteRecyclerAdapter mNoteRecyclerAdapter;
     private RecyclerView mRecyclerItems;
     private LinearLayoutManager mNotesLayoutManager;
@@ -50,6 +62,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        enableStrictMode();
 
         mDbOpenHelper = new NoteKeeperDatabaseOpenHelper(this);
 
@@ -77,6 +91,16 @@ public class MainActivity extends AppCompatActivity
         initializeDisplayContent();
     }
 
+    private void enableStrictMode() {
+        if(!BuildConfig.DEBUG) {
+            return;
+        }
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .detectAll().penaltyLog().build();
+
+        StrictMode.setThreadPolicy(policy);
+    }
+
     @Override
     protected void onDestroy() {
         mDbOpenHelper.close();
@@ -88,6 +112,19 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         getLoaderManager().restartLoader(LOADER_NOTES, null, this);
         updateNavHeader();
+
+        openDrawer();
+    }
+
+    private void openDrawer() {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                drawer.openDrawer(Gravity.START);
+            }
+        }, 1000);
     }
 
     private void updateNavHeader() {
@@ -166,9 +203,27 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
+        } else if(id == R.id.action_backup_notes) {
+            backupNotes();
+        } else if(id == R.id.action_upload_notes) {
+            scheduleNoteUpload();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void scheduleNoteUpload() {
+        PersistableBundle extras = new PersistableBundle();
+        extras.putString(NoteUploaderJobService.EXTRA_DATA_URI, Notes.CONTENT_URI.toString());
+
+        ComponentName componentName = new ComponentName(this, NoteUploaderJobService.class);
+        JobInfo jobInfo = new JobInfo.Builder(NOTE_UPLOADER_JOB_ID, componentName)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setExtras(extras)
+                .build();
+
+        JobScheduler jobScheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        jobScheduler.schedule(jobInfo);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -191,6 +246,12 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void backupNotes() {
+        Intent intent = new Intent(this, NoteBackupService.class);
+        intent.putExtra(NoteBackupService.EXTRA_COURSE_ID, ALL_COURSES);
+        startService(intent);
     }
 
     private void handleShare() {

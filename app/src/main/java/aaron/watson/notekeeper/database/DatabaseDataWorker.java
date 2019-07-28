@@ -1,9 +1,7 @@
-package aaron.watson.notekeeper.data;
+package aaron.watson.notekeeper.database;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-
-import aaron.watson.notekeeper.note.NoteKeeperDatabaseContract;
 
 public class DatabaseDataWorker {
     private SQLiteDatabase mDb;

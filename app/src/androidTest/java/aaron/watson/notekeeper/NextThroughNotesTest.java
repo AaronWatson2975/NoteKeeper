@@ -16,7 +16,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.*;
 import static android.support.test.espresso.assertion.ViewAssertions.*;
 import java.util.List;
 
-import aaron.watson.notekeeper.data.DatabaseManager;
+import aaron.watson.notekeeper.database.DatabaseManager;
 import aaron.watson.notekeeper.note.NoteInfo;
 
 
