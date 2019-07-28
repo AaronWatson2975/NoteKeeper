@@ -43,7 +43,7 @@ public class NoteUploader {
             String noteTitle = cursor.getString(noteTitlePos);
             String noteText = cursor.getString(noteTextPos);
 
-            if(!noteTitle.equals("")) {
+            if("".equals(noteTitle)) {
                 Log.i(TAG, ">>>   UPLOADING NOTE   <<<  -> " + courseId + "|" + noteTitle + "|" + noteText );
                 simulateLongRunningWork();
             }

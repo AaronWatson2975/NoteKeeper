@@ -39,9 +39,6 @@ public class NoteKeeperProvider extends ContentProvider {
         sUriMatcher.addURI(NoteKeeperProviderContract.AUTHORITY, Notes.PATH_EXPANDED + "/#", NOTES_EXPANDED_ROW);
     }
 
-    public NoteKeeperProvider() {
-    }
-
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         long rowId = -1;
