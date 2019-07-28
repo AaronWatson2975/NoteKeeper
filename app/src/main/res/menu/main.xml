@@ -11,4 +11,9 @@
         android:orderInCategory="101"
         android:title="Backup"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_upload_notes"
+        android:orderInCategory="102"
+        android:title="Upload Notes"
+        app:showAsAction="never" />
 </menu>

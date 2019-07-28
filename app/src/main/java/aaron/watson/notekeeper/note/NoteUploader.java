@@ -33,7 +33,7 @@ public class NoteUploader {
 
         Cursor cursor = mContext.getContentResolver().query(dataUri, columns, null, null, null);
         int courseIdPos = cursor.getColumnIndex(Notes.COLUMN_COURSE_ID);
-        int noteTitlePos = cursor.getColumnIndex(Notes.COLUMN_COURSE_TITLE);
+        int noteTitlePos = cursor.getColumnIndex(Notes.COLUMN_NOTE_TITLE);
         int noteTextPos = cursor.getColumnIndex(Notes.COLUMN_NOTE_TEXT);
 
         Log.i(TAG, ">>>*** UPLOAD START - " + dataUri + "***<<<");
@@ -45,7 +45,11 @@ public class NoteUploader {
 
             if(!noteTitle.equals("")) {
                 Log.i(TAG, ">>>   UPLOADING NOTE   <<<  -> " + courseId + "|" + noteTitle + "|" + noteText );
+                simulateLongRunningWork();
             }
+        }
+        if(!mCanceled) {
+            Log.i(TAG, ">>>***   UPLOAD COMPLETE   ***<<<");
         }
     }
 
