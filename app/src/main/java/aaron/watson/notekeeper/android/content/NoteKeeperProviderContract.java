@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper;
+package aaron.watson.notekeeper.android.content;
 
 import android.net.Uri;
 import android.provider.BaseColumns;

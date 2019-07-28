@@ -35,13 +35,14 @@ import android.view.View;
 import android.widget.TextView;
 import java.util.List;
 import aaron.watson.notekeeper.course.CourseInfo;
-import aaron.watson.notekeeper.course.CourseRecyclerAdapter;
-import aaron.watson.notekeeper.data.DatabaseManager;
-import aaron.watson.notekeeper.note.NoteActivity;
-import aaron.watson.notekeeper.note.NoteBackupService;
-import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
-import aaron.watson.notekeeper.note.NoteRecyclerAdapter;
-import static aaron.watson.notekeeper.NoteKeeperProviderContract.*;
+import aaron.watson.notekeeper.android.adapters.CourseRecyclerAdapter;
+import aaron.watson.notekeeper.database.DatabaseManager;
+import aaron.watson.notekeeper.android.job.NoteUploaderJobService;
+import aaron.watson.notekeeper.android.activities.NoteActivity;
+import aaron.watson.notekeeper.android.service.NoteBackupService;
+import aaron.watson.notekeeper.database.NoteKeeperDatabaseOpenHelper;
+import aaron.watson.notekeeper.android.adapters.NoteRecyclerAdapter;
+import static aaron.watson.notekeeper.android.content.NoteKeeperProviderContract.*;
 import static aaron.watson.notekeeper.note.NoteBackup.ALL_COURSES;
 
 public class MainActivity extends AppCompatActivity

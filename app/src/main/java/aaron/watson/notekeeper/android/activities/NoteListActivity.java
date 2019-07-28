@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper.note;
+package aaron.watson.notekeeper.android.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import aaron.watson.notekeeper.R;
+import aaron.watson.notekeeper.android.adapters.NoteRecyclerAdapter;
 
 public class NoteListActivity extends AppCompatActivity {
     private NoteRecyclerAdapter mNoteRecyclerAdapter;

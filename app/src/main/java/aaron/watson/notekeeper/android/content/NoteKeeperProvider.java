@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper;
+package aaron.watson.notekeeper.android.content;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -10,11 +10,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import java.security.AccessControlException;
-import aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.CourseInfoEntry;
-import aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.NoteInfoEntry;
-import aaron.watson.notekeeper.NoteKeeperProviderContract.Courses;
-import aaron.watson.notekeeper.NoteKeeperProviderContract.Notes;
-import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
+import aaron.watson.notekeeper.database.NoteKeeperDatabaseContract.CourseInfoEntry;
+import aaron.watson.notekeeper.database.NoteKeeperDatabaseContract.NoteInfoEntry;
+import aaron.watson.notekeeper.android.content.NoteKeeperProviderContract.Courses;
+import aaron.watson.notekeeper.android.content.NoteKeeperProviderContract.Notes;
+import aaron.watson.notekeeper.database.NoteKeeperDatabaseOpenHelper;
 
 public class NoteKeeperProvider extends ContentProvider {
 

@@ -1,7 +1,9 @@
-package aaron.watson.notekeeper.note;
+package aaron.watson.notekeeper.android.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+
+import aaron.watson.notekeeper.note.NoteBackup;
 
 public class NoteBackupService extends IntentService {
     public static final String EXTRA_COURSE_ID = "aaron.watson.notekeeper.note.extra.COURSE_ID";

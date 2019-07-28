@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper.note;
+package aaron.watson.notekeeper.android.activities;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -22,10 +22,13 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.R;
-import aaron.watson.notekeeper.data.DatabaseManager;
+import aaron.watson.notekeeper.database.DatabaseManager;
+import aaron.watson.notekeeper.database.NoteKeeperDatabaseOpenHelper;
+import aaron.watson.notekeeper.note.NoteInfo;
+import aaron.watson.notekeeper.android.notifications.NoteReminderNotification;
 
-import static aaron.watson.notekeeper.NoteKeeperProviderContract.*;
-import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
+import static aaron.watson.notekeeper.android.content.NoteKeeperProviderContract.*;
+import static aaron.watson.notekeeper.database.NoteKeeperDatabaseContract.*;
 
 public class NoteActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor>{

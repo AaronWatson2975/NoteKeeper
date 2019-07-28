@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".NoteUploaderJobService"
+            android:name=".android.job.NoteUploaderJobService"
             android:enabled="true"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
         <service
-            android:name=".note.NoteBackupService"
+            android:name=".android.service.NoteBackupService"
             android:exported="false" />
 
         <provider
-            android:name=".NoteKeeperProvider"
+            android:name=".android.content.NoteKeeperProvider"
             android:authorities="aaron.watson.notekeeper.provider"
             android:enabled="true"
             android:exported="true" />
@@ -45,11 +45,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".note.NoteListActivity"
+            android:name=".android.activities.NoteListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".note.NoteActivity"
+            android:name=".android.activities.NoteActivity"
             android:label="@string/title_activity_note"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

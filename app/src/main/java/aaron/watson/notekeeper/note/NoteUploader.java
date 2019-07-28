@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
-import aaron.watson.notekeeper.NoteKeeperProviderContract.Notes;
+import aaron.watson.notekeeper.android.content.NoteKeeperProviderContract.Notes;
 
 public class NoteUploader {
     private final String TAG = getClass().getSimpleName();

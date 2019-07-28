@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper;
+package aaron.watson.notekeeper.android.job;
 
 import android.app.job.JobParameters;
 import android.app.job.JobService;

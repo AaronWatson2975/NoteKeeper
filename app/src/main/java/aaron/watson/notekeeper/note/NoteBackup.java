@@ -2,11 +2,9 @@ package aaron.watson.notekeeper.note;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.widget.Toast;
 
-import static aaron.watson.notekeeper.NoteKeeperProviderContract.Notes;
+import static aaron.watson.notekeeper.android.content.NoteKeeperProviderContract.Notes;
 
 public class NoteBackup {
     public static final String ALL_COURSES = "ALL_COURSES";

@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper.note;
+package aaron.watson.notekeeper.android.notifications;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -13,6 +13,9 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import aaron.watson.notekeeper.MainActivity;
 import aaron.watson.notekeeper.R;
+import aaron.watson.notekeeper.android.activities.NoteActivity;
+import aaron.watson.notekeeper.note.NoteBackup;
+import aaron.watson.notekeeper.android.service.NoteBackupService;
 
 public class NoteReminderNotification {
 

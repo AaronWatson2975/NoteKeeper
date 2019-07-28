@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import aaron.watson.notekeeper.course.CourseInfo;
-import aaron.watson.notekeeper.data.DatabaseManager;
+import aaron.watson.notekeeper.database.DatabaseManager;
 
 /**
  * Created by Aaron on 2019-04-09.
