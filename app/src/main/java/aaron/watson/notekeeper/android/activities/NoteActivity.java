@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+
+import aaron.watson.notekeeper.android.broadcast.CourseEventBroadcastHelper;
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.R;
 import aaron.watson.notekeeper.database.DatabaseManager;
@@ -192,6 +194,8 @@ public class NoteActivity extends AppCompatActivity
         mSpinnerCourses.setSelection(courseIndex);
         mTextNoteTitle.setText(noteTitle);
         mTextNoteText.setText(noteText);
+
+        CourseEventBroadcastHelper.sendEventBroadcast(this, courseId, "Editing Note");
     }
 
     private int getIndexOfCourseId(String courseId) {
