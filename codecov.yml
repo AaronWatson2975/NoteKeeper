@@ -18,3 +18,5 @@ ignore:
   - "**/*Module*.*"
   - "**/*Database*.*"
   - "**/Database*.*"
+  - "**/*Provider*.*"
+  - "**/*Notification*.*"
