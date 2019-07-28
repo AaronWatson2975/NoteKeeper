@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper.course;
+package aaron.watson.notekeeper.android.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import aaron.watson.notekeeper.R;
+import aaron.watson.notekeeper.course.CourseInfo;
 
 public class CourseRecyclerAdapter extends RecyclerView.Adapter<CourseRecyclerAdapter.ViewHolder>{
     private final List<CourseInfo> mCourses;

@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import aaron.watson.notekeeper.course.CourseInfo;
-import aaron.watson.notekeeper.data.DatabaseManager;
+import aaron.watson.notekeeper.database.DatabaseManager;
 import aaron.watson.notekeeper.note.NoteInfo;
 
 /**

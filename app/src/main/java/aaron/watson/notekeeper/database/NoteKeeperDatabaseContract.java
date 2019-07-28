@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper.note;
+package aaron.watson.notekeeper.database;
 
 import android.provider.BaseColumns;
 

@@ -1,5 +1,7 @@
-package aaron.watson.notekeeper.note;
+package aaron.watson.notekeeper.android.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
@@ -10,20 +12,29 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.LoaderManager;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+
+import aaron.watson.notekeeper.android.broadcast.CourseEventBroadcastHelper;
+import aaron.watson.notekeeper.android.broadcast.NoteReminderReceiver;
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.R;
-import aaron.watson.notekeeper.data.DatabaseManager;
+import aaron.watson.notekeeper.database.DatabaseManager;
+import aaron.watson.notekeeper.database.NoteKeeperDatabaseOpenHelper;
+import aaron.watson.notekeeper.note.NoteInfo;
+import aaron.watson.notekeeper.android.notifications.NoteReminderNotification;
 
-import static aaron.watson.notekeeper.NoteKeeperProviderContract.*;
-import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
+import static aaron.watson.notekeeper.android.content.NoteKeeperProviderContract.*;
+import static aaron.watson.notekeeper.database.NoteKeeperDatabaseContract.*;
 
 public class NoteActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -54,6 +65,7 @@ public class NoteActivity extends AppCompatActivity
     private boolean mCoursesQueryFinished;
     private boolean mNotesQueryFinished;
     private Uri mNoteUri;
+    public static final long ONE_MINUTE = 60 * 1000;
 
     @Override
     protected void onDestroy() {
@@ -187,6 +199,8 @@ public class NoteActivity extends AppCompatActivity
         mSpinnerCourses.setSelection(courseIndex);
         mTextNoteTitle.setText(noteTitle);
         mTextNoteText.setText(noteText);
+
+        CourseEventBroadcastHelper.sendEventBroadcast(this, courseId, "Editing Note");
     }
 
     private int getIndexOfCourseId(String courseId) {
@@ -220,13 +234,44 @@ public class NoteActivity extends AppCompatActivity
     }
 
     private void createNewNote() {
+        AsyncTask<ContentValues, Integer, Uri> task = new AsyncTask<ContentValues, Integer, Uri>() {
+            private ProgressBar mProgressBar;
+
+            @Override
+            protected void onPreExecute() {
+                mProgressBar = findViewById(R.id.progress_bar);
+                mProgressBar.setVisibility(View.VISIBLE);
+                mProgressBar.setProgress(1);
+            }
+
+            @Override
+            protected Uri doInBackground(ContentValues... contentValues) {
+                ContentValues insertValues = contentValues[0];
+                publishProgress(2);
+                Uri rowUri = getContentResolver().insert(Notes.CONTENT_URI, insertValues);
+                publishProgress(3);
+                return rowUri;
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                int progressValue = values[0];
+                mProgressBar.setProgress(progressValue);
+            }
+
+            @Override
+            protected void onPostExecute(Uri uri) {
+                mNoteUri = uri;
+                mProgressBar.setVisibility(View.GONE);
+            }
+        };
+
         ContentValues values = new ContentValues();
         values.put(Notes.COLUMN_COURSE_ID, "");
         values.put(Notes.COLUMN_NOTE_TITLE, "");
         values.put(Notes.COLUMN_NOTE_TEXT, "");
 
-        mNoteUri = getContentResolver().insert(Notes.CONTENT_URI, values);
-
+        task.execute(values);
     }
 
     @Override
@@ -264,7 +309,18 @@ public class NoteActivity extends AppCompatActivity
         String noteTitle = mTextNoteTitle.getText().toString();
         int noteId = (int)ContentUris.parseId(mNoteUri);
 
-        NoteReminderNotification.notify(this, noteTitle, noteText, noteId);
+        Intent intent = new Intent(this, NoteReminderReceiver.class);
+        intent.putExtra(NoteReminderReceiver.EXTRA_NOTE_TITLE, noteTitle);
+        intent.putExtra(NoteReminderReceiver.EXTRA_NOTE_TEXT, noteText);
+        intent.putExtra(NoteReminderReceiver.EXTRA_NOTE_ID, noteId);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        long currentTime = SystemClock.elapsedRealtime();
+        long alarmTime = currentTime + ONE_MINUTE;
+
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME, alarmTime, pendingIntent);
     }
 
     @Override

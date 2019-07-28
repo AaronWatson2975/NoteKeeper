@@ -1,4 +1,4 @@
-package aaron.watson.notekeeper.data;
+package aaron.watson.notekeeper.database;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,9 +9,8 @@ import java.util.List;
 import aaron.watson.notekeeper.course.CourseInfo;
 import aaron.watson.notekeeper.ModuleInfo;
 import aaron.watson.notekeeper.note.NoteInfo;
-import aaron.watson.notekeeper.note.NoteKeeperDatabaseOpenHelper;
 
-import static aaron.watson.notekeeper.note.NoteKeeperDatabaseContract.*;
+import static aaron.watson.notekeeper.database.NoteKeeperDatabaseContract.*;
 
 public class DatabaseManager {
     private static DatabaseManager ourInstance = null;
