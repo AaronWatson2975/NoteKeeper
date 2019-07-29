@@ -68,4 +68,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.4" />
 
+    <view
+        android:id="@+id/module_status"
+        class="aaron.watson.notekeeper.android.views.ModuleStatusView"
+        id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/text_note_title"
+        app:layout_constraintStart_toStartOf="@+id/text_note_title"
+        app:layout_constraintTop_toBottomOf="@+id/text_note_title" />
+
 </android.support.constraint.ConstraintLayout>
